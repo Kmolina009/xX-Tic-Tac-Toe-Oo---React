@@ -14,18 +14,18 @@ function Square({ value }){
 
 function Board(){
   return (
-  <div>
-    <div>  
-      <Square value="1" />  
+  <div className='board'>
+    <div className='board-row'>  
+      <Square />  
       <Square />    
       <Square />    
     </div>
-    <div>  
+    <div className='board-row'>  
       <Square />    
       <Square />    
       <Square />    
     </div>
-    <div>  
+    <div className='board-row'>  
       <Square />    
       <Square />    
       <Square />    
