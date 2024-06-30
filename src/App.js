@@ -5,11 +5,11 @@ import './App.css';
 
 function Square({ value }){
    
-  function [marking, setMarking] = useState(null);
+  const [marking, setMarking] = useState(null);
   function handleClick(){
-    return console.log("I've been clicked")
+    setMarking('X');
   }
-  return <button className='square' onClick={handleClick}>{ value }</button>
+  return <button className='square' onClick={handleClick}>{ marking }</button>
 }
 
 function Board(){
