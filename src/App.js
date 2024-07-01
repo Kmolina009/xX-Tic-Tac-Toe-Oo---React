@@ -12,7 +12,7 @@ import './App.css';
 // child components in sync with each other and with their parents. 
 
 //Lifting state into a parent component is commen when React Components are being refactored.
- 
+
 function Square({ value }){
    
   const [marking, setMarking] = useState(null);
@@ -23,22 +23,25 @@ function Square({ value }){
 }
 
 function Board(){
+  // Hook that determines state of Child Components
+  const [squares, setSquares] = useState(Array(9).fill(null))
   return (
   <div className='board'>
     <div className='board-row'>  
-      <Square />  
-      <Square />    
-      <Square />    
+      {/* State being passed into Child Components */}
+      <Square marking={squares[0]}/>  
+      <Square marking={squares[1]}/>    
+      <Square marking={squares[2]}/>    
     </div>
     <div className='board-row'>  
-      <Square />    
-      <Square />    
-      <Square />    
+      <Square marking={squares[3]}/>  
+      <Square marking={squares[4]}/>    
+      <Square marking={squares[5]}/>    
     </div>
     <div className='board-row'>  
-      <Square />    
-      <Square />    
-      <Square />    
+      <Square marking={squares[6]}/>  
+      <Square marking={squares[7]}/>    
+      <Square marking={squares[8]}/>    
     </div>
   </div>
   )
