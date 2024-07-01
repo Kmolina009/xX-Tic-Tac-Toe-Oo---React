@@ -21,6 +21,11 @@ function Square({ value, onSquareClick }){
 function Board(){
   // Hook that determines state of Child Components
   const [squares, setSquares] = useState(Array(9).fill(null));
+  function handleClick(){
+    const nextSquares = squares.slice();
+    nextSquares[0]="X";
+    setSquares(nextSquares);
+  }
   return (
   <div className='board'>
     <div className='board-row'>  
