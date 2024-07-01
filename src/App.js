@@ -13,10 +13,9 @@ import './App.css';
 
 //Lifting state into a parent component is commen when React Components are being refactored.
 
-// Removed state in Square and onClick event. No longer needed in child component since parent component will handle it.
+
 function Square({ value }){
-  }
-  return <button className='square' onClick={handleClick}>{ marking }</button>
+  return <button className='square'>{ value }</button>
 }
 
 function Board(){
