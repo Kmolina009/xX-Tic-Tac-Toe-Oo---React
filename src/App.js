@@ -8,13 +8,20 @@ function Square({ value, onSquareClick }){
 
 function Board(){
   // Hook that determines state of Child Components
+  const [xIsNext, setXIsNext] = useState(true);
   const [squares, setSquares] = useState(Array(9).fill(null));
 //This is a closure with the Board function
-  function handleClick(i){
-    console.log("Clicked " + String(i))
+// TODO - work out this function to change letter
+function handleClick(i){
     const nextSquares = squares.slice();
-    nextSquares[i]="X";
+    if(xIsNext){
+      nextSquares[i]="X";
+    }else{
+      nextSquares[i]="O";
+    }
+    
     setSquares(nextSquares);
+    setXIsNext(xIsNext)
     console.log(nextSquares)
   }
   return (
