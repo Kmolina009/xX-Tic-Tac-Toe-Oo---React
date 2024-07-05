@@ -13,6 +13,9 @@ function Board(){
 //This is a closure with the Board function
 // TODO - work out this function to change letter
 function handleClick(i){
+  if(squares[i]){
+    return;
+  }
     const nextSquares = squares.slice();
     if(xIsNext){
       nextSquares[i]="X";
@@ -21,7 +24,7 @@ function handleClick(i){
     }
     
     setSquares(nextSquares);
-    setXIsNext(xIsNext)
+    setXIsNext(!xIsNext)
     console.log(nextSquares)
   }
   return (
