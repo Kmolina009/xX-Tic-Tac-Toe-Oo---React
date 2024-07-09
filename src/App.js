@@ -1,38 +1,45 @@
 import { useState } from 'react';
-import logo from './logo.svg';
 import './App.css';
-
-//To check for a winnerm the Board would eed to somehow know the state of each of the 9 Square Component 
-// One could have the board ask each Square component for it's cuirrent State. - this is not recommented(convoluted, prone to bugs)
-//Instead the Board can tell each square what data it should display given a current State - You want the Parent component to store state
-
-
-// To collect data fron multiple children, or have two child components communicate with each other, declare the shared state in 
-// their parent component instead. The parent component can pass that state back down to the children via props. This keeps the 
-// child components in sync with each other and with their parents. 
-
-//Lifting state into a parent component is commen when React Components are being refactored.
-//Important Note - State is private to the component that defines it - in this case you cannot update the Board's state from Square
 
 function Square({ value, onSquareClick }){
   return <button className='square' onClick={onSquareClick}>{ value }</button>
 }
 
 function Board(){
+
   // Hook that determines state of Child Components
+  const [xIsNext, setXIsNext] = useState(true);
   const [squares, setSquares] = useState(Array(9).fill(null));
 //This is a closure with the Board function
-  function handleClick(i){
-    console.log("Clicked " + String(i))
+// TODO - work out this function to change letter
+function handleClick(i){
+  if(squares[i] || calculateWinner(squares)){
+    return;
+  }
     const nextSquares = squares.slice();
-    nextSquares[i]="X";
+    if(xIsNext){
+      nextSquares[i]="X";
+    }else{
+      nextSquares[i]="O";
+    }
+    
     setSquares(nextSquares);
+    setXIsNext(!xIsNext)
     console.log(nextSquares)
+  }
+  
+  const winner = calculateWinner(squares);
+  let status;
+  if(winner){
+    status =`Winner: ${winner}`;
+  } else {
+    status = `Next player: ${xIsNext ? "X" : "O"}`
   }
   return (
   <div className='board'>
+  <div className='status'>{status}</div>
     <div className='board-row'>  
-      {/* State being passed into Child Components */}
+      {/* State being passed into Child Components through props*/}
       <Square value={squares[0]} onSquareClick={() => handleClick(0)}/>  
       <Square value={squares[1]} onSquareClick={() => handleClick(1)}/>    
       <Square value={squares[2]} onSquareClick={() => handleClick(2)}/>    
@@ -50,6 +57,25 @@ function Board(){
   </div>
   )
 }
+function calculateWinner(squares){
+  const lines = [
+    [0,1,2],
+    [3,4,5],
+    [6,7,8],
+    [0,3,6],
+    [1,4,7],
+    [2,5,8],
+    [0,4,8],
+    [2,4,6]
+  ];
+  for(let i =0; i < lines.length; i++){
+    const [a,b,c] = lines[i];
+    if(squares[a] && squares[a] === squares[b] && squares[a] === squares[c]){
+      return squares[a];
+    }
+  }
+  return null;
+ }
 function App() {
   return (
     <div className="App">
